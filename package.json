@@ -1,0 +1,5 @@
+{
+  "name": "safe-scripts",
+  "version": "1.0.0",
+  "description": "Claude Code plugin: pre-approved safe scripts to eliminate permission dialogs"
+}

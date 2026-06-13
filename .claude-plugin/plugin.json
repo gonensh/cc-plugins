@@ -1,0 +1,10 @@
+{
+  "name": "safe-scripts",
+  "description": "Build a library of pre-approved safe scripts to eliminate repetitive permission dialogs",
+  "version": "1.0.0",
+  "author": {
+    "name": "Your Name"
+  },
+  "license": "MIT",
+  "keywords": ["permissions", "safety", "scripts", "automation", "bash"]
+}
