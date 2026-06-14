@@ -1,3 +1,31 @@
 #!/usr/bin/env bash
-# Stub — implemented in Task 3
-exit 0
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+source "${SCRIPT_DIR}/../scripts/lib.sh"
+
+SCRIPTS_DIR="$(get_safe_scripts_dir)"
+MANIFEST="$(load_manifest "$SCRIPTS_DIR")"
+
+SCRIPT_COUNT=$(echo "$MANIFEST" | jq '.scripts | length' 2>/dev/null || echo 0)
+
+if [ "$SCRIPT_COUNT" -eq 0 ]; then
+    CONTEXT="<safe-scripts>
+No safe scripts saved yet. When a Bash command needs your approval, you will see an [OFFER_SAFE_SCRIPT] hint — invoke the safe-scripts:safe-scripts skill to offer the user a generalized pre-approved version.
+</safe-scripts>"
+else
+    CATALOG=$(echo "$MANIFEST" | jq -r \
+        '.scripts[] | "- " + .usage + " — " + .description' 2>/dev/null)
+    CONTEXT="<safe-scripts-catalog>
+Available safe scripts — prefer these over raw bash (pre-approved, no permission dialog needed):
+${CATALOG}
+
+Rules:
+- Before writing any Bash command, check this catalog. If a matching script exists, call it directly.
+- When you see [SAFE_SCRIPT_AVAILABLE] in a hook response: do not retry the original command — use the safe script shown.
+- When you see [HEREDOC_POSSIBLE_MATCH]: invoke safe-scripts:safe-scripts skill and compare the heredoc body to the candidate scripts before retrying.
+- When you see [OFFER_SAFE_SCRIPT]: invoke safe-scripts:safe-scripts skill and offer the user the save choice in your next reply.
+</safe-scripts-catalog>"
+fi
+
+emit_context "$CONTEXT" "SessionStart"
