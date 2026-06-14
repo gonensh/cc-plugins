@@ -62,6 +62,11 @@ assert_eq "$(echo "$MATCH" | jq -r '.name')" "git-file-log" \
 NO_MATCH=$(find_matching_script "ls -la" "$MANIFEST")
 assert_eq "$NO_MATCH" "" "find_matching_script: no match returns empty"
 
+# heredoc:true entries are skipped even when patterns match
+HD_MANIFEST='{"version":1,"scripts":[{"name":"analyze-csv","heredoc":true,"description":"CSV","script":"analyze-csv.py","usage":"analyze-csv <file>","patterns":["^python3"]}]}'
+SKIPPED=$(find_matching_script "python3 << EOF" "$HD_MANIFEST")
+assert_eq "$SKIPPED" "" "find_matching_script: skips heredoc:true entry even when pattern matches"
+
 # --- find_heredoc_candidates ---
 HDMANIFEST='{"version":1,"scripts":[{"name":"analyze-csv","heredoc":true,"description":"Analyze a CSV"},{"name":"git-log","description":"Git log"}]}'
 CANDIDATES=$(find_heredoc_candidates "$HDMANIFEST")
