@@ -1,17 +1,17 @@
-# claude-plugins
+# cc-plugins
 
 A [Claude Code plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces) by Gonen Shoham — a small, curated collection of plugins and skills that make Claude Code safer and less interruptive to work with.
 
 ## Add the marketplace
 
 ```shell
-/plugin marketplace add gonensh/claude-plugins
+/plugin marketplace add gonensh/cc-plugins
 ```
 
 Then install any plugin below by name:
 
 ```shell
-/plugin install <plugin-name>@cc-plugins
+/plugin install <plugin-name>@gonensh-cc-plugins
 ```
 
 Refresh your local copy after new plugins are published with `/plugin marketplace update`.
@@ -23,13 +23,13 @@ Refresh your local copy after new plugins are published with `/plugin marketplac
 | [**safe-scripts**](plugins/safe-scripts/) | Turns one-off Bash commands into reusable, parameterized scripts that preserve their original intent, then pre-approves them — so equivalent commands never trigger a permission dialog again. |
 
 ```shell
-/plugin install safe-scripts@cc-plugins
+/plugin install safe-scripts@gonensh-cc-plugins
 ```
 
 ## Repository layout
 
 ```
-claude-plugins/
+cc-plugins/
 ├── .claude-plugin/
 │   └── marketplace.json          ← marketplace catalog
 ├── plugins/

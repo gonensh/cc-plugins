@@ -27,8 +27,8 @@ Because everything runs through the Bash tool, the same mechanism covers every i
 Add the marketplace, then install the plugin:
 
 ```shell
-/plugin marketplace add gonensh/claude-plugins
-/plugin install safe-scripts@cc-plugins
+/plugin marketplace add gonensh/cc-plugins
+/plugin install safe-scripts@gonensh-cc-plugins
 ```
 
 ## Usage
